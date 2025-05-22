@@ -69,7 +69,7 @@ public class CashRegisterServiceImpl implements CashRegisterService {
         total = total.setScale(2, RoundingMode.HALF_UP);
 
         if (cashPaid.compareTo(total) < 0) {
-            throw new InsufficientFundsException("Need " + total + ", but paid " + cashPaid);
+            throw new InsufficientFundsException("Need " + total + ", but only paid " + cashPaid);
         }
 
         Long serial = nextSerial();
