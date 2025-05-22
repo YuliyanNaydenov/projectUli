@@ -19,13 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class CashRegisterServiceImpl implements CashRegisterService {
 
     private final InventoryService inventoryService;
     private final ReceiptRepository repository;
-    private static final AtomicLong SERIAL_GENERATOR = new AtomicLong(1);
+    private static long serialGenerator = 1L;
+    private static synchronized long nextSerial() {
+        return serialGenerator++;
+    }
 
     public CashRegisterServiceImpl(InventoryService inventoryService,
                                    ReceiptRepository repository) {
@@ -33,12 +35,10 @@ public class CashRegisterServiceImpl implements CashRegisterService {
         this.repository = repository;
     }
 
-
-
     @Override
     public Receipt selling(Cashier cashier,
-                        Map<Long, Integer> productIdToQty,
-                        BigDecimal cashPaid)
+                           Map<Long, Integer> productIdToQty,
+                           BigDecimal cashPaid)
             throws InsufficientQuantityException,
             ExpiredProductException,
             InsufficientFundsException {
@@ -72,8 +72,8 @@ public class CashRegisterServiceImpl implements CashRegisterService {
             throw new InsufficientFundsException("Need " + total + ", but paid " + cashPaid);
         }
 
-        Long serial = SERIAL_GENERATOR.getAndIncrement();
-        Receipt receipt = new Receipt(serial, cashier,LocalDateTime.now(), lines, total);
+        Long serial = nextSerial();
+        Receipt receipt = new Receipt(serial, cashier, LocalDateTime.now(), lines, total);
 
         repository.saveReceipt(receipt);
         return receipt;
