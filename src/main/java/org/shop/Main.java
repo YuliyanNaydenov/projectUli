@@ -24,7 +24,7 @@ public class Main {
 
 
         /* ---------------------------------------------------------
-         * 1. Инфраструктура (Inventory, Persistence, Cash Register)
+         * 1. Начална конструкция (Inventory, Persistence, Cash Register)
          * --------------------------------------------------------- */
 
         InventoryService inventory =  new InventoryServiceImpl(
@@ -37,7 +37,7 @@ public class Main {
         CashRegisterService cashRegister = new CashRegisterServiceImpl(inventory, repo);
 
         /* ---------------------------------------------------------
-         * 2. Данни – касиер и продукти
+         * 2. Данни за касиер и продукти
          * --------------------------------------------------------- */
 
         Cashier maria = new Cashier(1L, "Maria", new BigDecimal("150"));
@@ -90,21 +90,14 @@ public class Main {
         System.out.println("==================================");
 
         /* ---------------------------------------------------------
-         * 6. Проверка на файловете
+         * 7. Проверка на инвентар
          * --------------------------------------------------------- */
-
 
         System.out.println();
         System.out.println("=== STOCK ===");
         inventory.getStockSnapshot()
                 .forEach((p, quantity) ->
                         System.out.printf("%-20s Quantity: %d%n", p.getName(), quantity));
-
-
-        /* ---------------------------------------------------------
-         * 7. Проверка на инвентар
-         * --------------------------------------------------------- */
-
 
     }
 

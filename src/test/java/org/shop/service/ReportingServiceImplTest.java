@@ -2,7 +2,6 @@ package org.shop.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.shop.data.model.Cashier;
@@ -36,7 +35,7 @@ public class ReportingServiceImplTest {
     }
 
     @Test
-    void getTotalTurnover_returnsSumOfReceipts() {
+    void getTotalTurnover_IfItreturnsSumOfReceipts() {
         Receipt r1 = mockReceipt(1L, "100.50");
         Receipt r2 = mockReceipt(2L, "50.00");
 
@@ -49,7 +48,7 @@ public class ReportingServiceImplTest {
     }
 
     @Test
-    void getTotalSalaries_SumOfAll() {
+    void getTotalSalaries_IfItReturnsSumOfAll() {
         assertEquals(new BigDecimal("2000"), reporting.getTotalSalaries());
     }
 

@@ -39,7 +39,7 @@ private Product tv;        // NON_EDIBLE, 1 000 lv
     }
 
     @Test
-    void deliver_IncreasesQuantityAndTotalPurchaseCost() {
+    void deliver_WhenQuantityAndTotalPurchaseCostAreInsufficient() {
         inventory.deliver(milk, 10);                // +20 lv
         inventory.deliver(tv,  3);                  // +3 000 lv
 
@@ -51,28 +51,28 @@ private Product tv;        // NON_EDIBLE, 1 000 lv
     }
 
     @Test
-    void remove_DecreasesQuantity()  {
+    void remove_IfQuantityDecreases()  {
         inventory.deliver(milk, 5);
         inventory.remove(milk, 3);
         assertEquals(2, milk.getQuantity());
     }
 
     @Test
-    void remove_NotEnoughInInventory() {
+    void remove_WhenNotEnoughInInventory() {
         inventory.deliver(milk, 2);
         assertThrows(InsufficientQuantityException.class,
                 () -> inventory.remove(milk, 5));
     }
 
     @Test
-    void getSellingPrice_AddsMarkUp() {
+    void getSellingPrice_IfItAddsMarkUp() {
         inventory.deliver(tv, 1);
         BigDecimal price = inventory.getSellingPrice(tv, LocalDate.now());
         assertEquals(new BigDecimal("1300.00"), price);     // 1000 + 30 %
     }
 
     @Test
-    void getSellingPrice_AddsMarkdownWhenNearExpiry() {
+    void getSellingPrice_IfItAddsMarkdownWhenNearExpiry() {
         Product bread = new FoodProduct(3L, "Bread",
                 new BigDecimal("1.00"),
                 LocalDate.now().plusDays(2), 0);   // < markdownDays = 3
@@ -95,7 +95,7 @@ private Product tv;        // NON_EDIBLE, 1 000 lv
     }
 
     @Test
-    void listExpiringSoon_ReturnsOnlyRelevantProducts() {
+    void listExpiringSoon_IfReturnsOnlyRelevantProducts() {
         Product cheese = new FoodProduct(5L, "Cheese",
                 new BigDecimal("5.00"),
                 LocalDate.now().plusDays(2), 0);

@@ -27,7 +27,6 @@ class ReceiptRepositoryImplTest {
         repo = new ReceiptRepositoryImpl();
     }
 
-    /* ------------ helper за примерна бележка ------------ */
     private Receipt sampleReceipt(long serial) {
         Cashier c = new Cashier(1L, "Maria", new BigDecimal("1000"));
         Product p = new FoodProduct(10L, "Milk",
@@ -54,12 +53,12 @@ class ReceiptRepositoryImplTest {
 //    }
 
     @Test
-    void readReceipt_missingReturnsNull() {
+    void readReceipt_IfMissingReturnsNull() {
         assertNull(repo.readReceipt(42L));                    // nishto zapisano s №42
     }
 
     @Test
-    void countReceipts_emptyFolder() {
+    void countReceipts_IfFolderIsEmpty() {
         assertEquals(3, repo.countReceipts());                // temp-direktoriqta shte e prazna ako raboteshe...
     }
 

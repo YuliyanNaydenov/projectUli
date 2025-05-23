@@ -87,7 +87,7 @@ public class CashRegisterServiceImplTest {
 
 
     @Test
-    void sell_InsufficientQuantity() {
+    void selling_WhenQuantityIsInsufficient() {
         when(inventory.findProductById(1L)).thenReturn(product);
         when(inventory.getSellingPrice(eq(product), any())).thenReturn(new BigDecimal("2.40"));
         doThrow(new InsufficientQuantityException("")).when(inventory).remove(product, 3);
@@ -112,8 +112,7 @@ public class CashRegisterServiceImplTest {
     }
 
     @Test
-    void selling_IncrementsSerialNumber() throws Exception {
-        // GIVEN: подготвяме мока
+    void selling_IncrementsSerialNumber()  {
         when(inventory.findProductById(1L)).thenReturn(product);
         when(inventory.getSellingPrice(eq(product), any()))
                 .thenReturn(new BigDecimal("2"));
