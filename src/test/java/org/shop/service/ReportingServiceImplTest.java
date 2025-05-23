@@ -35,7 +35,7 @@ public class ReportingServiceImplTest {
     }
 
     @Test
-    void getTotalTurnover_IfItreturnsSumOfReceipts() {
+    void getTotalTurnover_IfItReturnsSumOfReceipts() {
         Receipt r1 = mockReceipt(1L, "100.50");
         Receipt r2 = mockReceipt(2L, "50.00");
 
