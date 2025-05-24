@@ -112,7 +112,7 @@ public class CashRegisterServiceImplTest {
     }
 
     @Test
-    void selling_IncrementsSerialNumber()  {
+    void selling_IfItIncrementsSerialNumber()  {
         when(inventory.findProductById(1L)).thenReturn(product);
         when(inventory.getSellingPrice(eq(product), any()))
                 .thenReturn(new BigDecimal("2"));

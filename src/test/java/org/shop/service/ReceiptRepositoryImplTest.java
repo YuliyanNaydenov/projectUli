@@ -53,7 +53,7 @@ class ReceiptRepositoryImplTest {
 //    }
 
     @Test
-    void readReceipt_IfMissingReturnsNull() {
+    void readReceipt_IfMissing_ReturnsNull() {
         assertNull(repo.readReceipt(42L));                    // nishto zapisano s №42
     }
 
@@ -63,7 +63,7 @@ class ReceiptRepositoryImplTest {
     }
 
     @Test
-    void saveMultiple_incrementsCount() {
+    void saveMultiple_IfItIncrementsCount() {
         repo.saveReceipt(sampleReceipt(1L));
         repo.saveReceipt(sampleReceipt(2L));
         repo.saveReceipt(sampleReceipt(3L));

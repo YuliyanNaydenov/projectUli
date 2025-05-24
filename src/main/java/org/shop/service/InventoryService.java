@@ -15,9 +15,7 @@ public interface InventoryService {
     BigDecimal getSellingPrice(Product product, LocalDate onDate);
     List<Product> listExpiringSoon();
     Product findProductById(Long id);
-
-    Map<Product, Integer> getStockSnapshot();
-
+    Map<Product, Integer> getStockState();
 
     java.math.BigDecimal getTotalPurchaseCost();
 }

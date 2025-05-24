@@ -10,10 +10,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InventoryServiceImpl implements InventoryService {
@@ -93,15 +90,25 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<Product> listExpiringSoon() {
         LocalDate today = LocalDate.now();
-        return inventory.values().stream()
+
+        List<Product> expiringSoon = inventory.values().stream()
                 .filter(p -> {
                     long d = ChronoUnit.DAYS.between(today, p.getExpiryDate());
                     return d >= 0 && d < discountDays;
                 })
-
+                .sorted(Comparator.comparing(Product::getExpiryDate))
                 .collect(Collectors.toList())
                 .reversed();
+
+        if (expiringSoon.isEmpty()) {
+            System.out.println("No found products that will expire soon :D");
+        }  else {
+        System.out.println("Found " + expiringSoon.size() + " product(s) with soon expiry: ");
     }
+
+        return expiringSoon;
+    }
+
 
     @Override
     public Product findProductById(Long id) {
@@ -109,7 +116,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public Map<Product, Integer> getStockSnapshot() {
+    public Map<Product, Integer> getStockState() {
         return inventory.values()
                 .stream()
                 .collect(java.util.stream.Collectors

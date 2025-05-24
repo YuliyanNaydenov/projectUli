@@ -2,12 +2,9 @@ package org.shop.data.repository.impl;
 
 import org.shop.data.model.Receipt;
 import org.shop.data.repository.ReceiptRepository;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 public class ReceiptRepositoryImpl implements ReceiptRepository {
 

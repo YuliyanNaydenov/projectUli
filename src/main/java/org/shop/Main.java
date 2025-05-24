@@ -37,7 +37,7 @@ public class Main {
         CashRegisterService cashRegister = new CashRegisterServiceImpl(inventory, repo);
 
         /* ---------------------------------------------------------
-         * 2. Данни за касиер и продукти
+         * 2. Дневни данни за касиер и продукти
          * --------------------------------------------------------- */
 
         Cashier maria = new Cashier(1L, "Maria", new BigDecimal("150"));
@@ -45,12 +45,12 @@ public class Main {
         Product milk = new FoodProduct(
                 5L, "Milk",
                 new BigDecimal("2.0"),
-                LocalDate.now().plusDays(7), 0);
+                LocalDate.now().plusDays(2), 0);
 
         Product PS5 = new NonFoodProduct(
                 7654L, "PlayStation 5",
                 new BigDecimal("999.99"),
-                LocalDate.now().plusYears(4), 0
+                LocalDate.now().plusYears(4), 1
         );
 
         Product tv = new NonFoodProduct(
@@ -64,9 +64,10 @@ public class Main {
         inventory.deliver(milk, 5);
         inventory.deliver(PS5,1);
         inventory.deliver(tv, 0);
+        inventory.remove(milk,1);
 
         /* ---------------------------------------------------------
-         * 4. Продажба
+         * 4. Продажби
          * --------------------------------------------------------- */
         Map<Long, Integer> basket = Map.of(
                 milk.getId(), 3,
@@ -76,7 +77,7 @@ public class Main {
         cashRegister.selling(maria, basket, new BigDecimal("7000.00"));
 
         /* ---------------------------------------------------------
-         * 5. Отчети – печат в конзолата
+         * 5. Отчети (печат в конзолата)
          * --------------------------------------------------------- */
         ReportingService reporting = new ReportingServiceImpl(repo, List.of(maria), inventory);
 
@@ -95,9 +96,16 @@ public class Main {
 
         System.out.println();
         System.out.println("=== STOCK ===");
-        inventory.getStockSnapshot()
+        inventory.getStockState()
                 .forEach((p, quantity) ->
                         System.out.printf("%-20s Quantity: %d%n", p.getName(), quantity));
+
+        /* ---------------------------------------------------------
+         * 8. Проверка за продукти с изтичащ срок
+         * --------------------------------------------------------- */
+
+        System.out.println();
+        System.out.println(inventory.listExpiringSoon());
 
     }
 
