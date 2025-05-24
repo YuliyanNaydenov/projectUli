@@ -104,6 +104,7 @@ public class InventoryServiceImpl implements InventoryService {
             System.out.println("No found products that will expire soon :D");
         }  else {
         System.out.println("Found " + expiringSoon.size() + " product(s) with soon expiry: ");
+            System.out.println();
     }
 
         return expiringSoon;

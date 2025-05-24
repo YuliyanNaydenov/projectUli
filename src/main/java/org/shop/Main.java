@@ -95,17 +95,24 @@ public class Main {
          * --------------------------------------------------------- */
 
         System.out.println();
-        System.out.println("=== STOCK ===");
+        System.out.println("============= STOCK =============");
         inventory.getStockState()
                 .forEach((p, quantity) ->
                         System.out.printf("%-20s Quantity: %d%n", p.getName(), quantity));
+        System.out.println("=================================");
+
 
         /* ---------------------------------------------------------
          * 8. Проверка за продукти с изтичащ срок
          * --------------------------------------------------------- */
 
         System.out.println();
+        System.out.println("========== ZA BRAKUVANE ============");
+
         System.out.println(inventory.listExpiringSoon());
+
+        System.out.println("====================================");
+
 
     }
 
