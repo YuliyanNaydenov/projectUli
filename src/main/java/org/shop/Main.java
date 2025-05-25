@@ -61,6 +61,7 @@ public class Main {
         /* ---------------------------------------------------------
          * 3. Зареждане на магазина
          * --------------------------------------------------------- */
+
         inventory.deliver(milk, 5);
         inventory.deliver(PS5,1);
         inventory.deliver(tv, 0);
@@ -69,6 +70,7 @@ public class Main {
         /* ---------------------------------------------------------
          * 4. Продажби
          * --------------------------------------------------------- */
+
         Map<Long, Integer> basket = Map.of(
                 milk.getId(), 3,
                 PS5.getId(), 1,
@@ -79,6 +81,7 @@ public class Main {
         /* ---------------------------------------------------------
          * 5. Отчети (печат в конзолата)
          * --------------------------------------------------------- */
+
         ReportingService reporting = new ReportingServiceImpl(repo, List.of(maria), inventory);
 
         System.out.println("========== DAILY REPORT ==========");
