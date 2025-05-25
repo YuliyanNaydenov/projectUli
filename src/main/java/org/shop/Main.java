@@ -1,9 +1,6 @@
 package org.shop;
 
-import org.shop.data.model.Cashier;
-import org.shop.data.model.FoodProduct;
-import org.shop.data.model.NonFoodProduct;
-import org.shop.data.model.Product;
+import org.shop.data.model.*;
 import org.shop.data.repository.ReceiptRepository;
 import org.shop.data.repository.impl.ReceiptRepositoryImpl;
 import org.shop.service.CashRegisterService;
@@ -68,7 +65,7 @@ public class Main {
         inventory.remove(milk,1);
 
         /* ---------------------------------------------------------
-         * 4. Продажби
+         * 4. Продажби + сериализация и десериализация
          * --------------------------------------------------------- */
 
         Map<Long, Integer> basket = Map.of(
@@ -76,7 +73,15 @@ public class Main {
                 PS5.getId(), 1,
                 tv.getId(), 1);
 
-        cashRegister.selling(maria, basket, new BigDecimal("7000.00"));
+        Receipt soldReceipt = cashRegister.selling(maria, basket, new BigDecimal("7000.00"));
+
+        long serial = soldReceipt.getSerialNumber();
+        Receipt fromDisk = repo.readReceipt(serial);
+
+        System.out.println();
+        System.out.println("=== READ BACK FROM .ser ===");
+        System.out.println(fromDisk);
+        System.out.println();
 
         /* ---------------------------------------------------------
          * 5. Отчети (печат в конзолата)
